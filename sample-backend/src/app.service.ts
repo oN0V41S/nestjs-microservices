@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
 import { CreateUserRequest } from './create-user-request.dto';
+import { ClientProxy } from '@nestjs/microservices'
 import { CreateUserEvent } from './create-user.event';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class AppService {
     @Inject('COMMUNICATION') private readonly communicationClient: ClientProxy,
     @Inject('ANALYTICS') private readonly analyticsClient: ClientProxy,
   ) {}
-
+  
   getHello(): string {
     return 'Hello World!';
   }
@@ -19,16 +19,17 @@ export class AppService {
   createUser(createUserRequest: CreateUserRequest) {
     this.users.push(createUserRequest);
     this.communicationClient.emit(
-      'user_created',
-      new CreateUserEvent(createUserRequest.email),
-    );
+      'user_created', 
+      new CreateUserEvent(createUserRequest.email)
+    )
     this.analyticsClient.emit(
-      'user_created',
-      new CreateUserEvent(createUserRequest.email),
-    );
+      'user_created', 
+      new CreateUserEvent(createUserRequest.email)
+    )
+    return createUserRequest
   }
 
   getAnalytics() {
-    return this.analyticsClient.send({ cmd: 'get_analytics' }, {});
+    return this.analyticsClient.send({cmd: 'get_analytics'}, {});
   }
 }

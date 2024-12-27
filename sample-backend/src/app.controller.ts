@@ -14,6 +14,7 @@ export class AppController {
   @Post()
   createUser(@Body() createUserRequest: CreateUserRequest) {
     this.appService.createUser(createUserRequest);
+    console.log("user_created - BACKEND");
   }
 
   @Get('analytics')

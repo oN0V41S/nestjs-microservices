@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +11,6 @@ async function bootstrap() {
     },
   });
   await app.startAllMicroservices();
-  await app.listen(3001);
+  await app.listen(process.env.PORT_ANALYTICS ?? 3001);
 }
 bootstrap();

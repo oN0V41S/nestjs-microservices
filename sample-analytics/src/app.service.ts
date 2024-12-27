@@ -5,19 +5,20 @@ import { CreateUserEvent } from './create-user.event';
 export class AppService {
   private readonly analytics: any[] = [];
 
+  
   getHello(): string {
     return 'Hello World!';
   }
 
   handleUserCreated(data: CreateUserEvent) {
-    console.log('handlerUserCreated - ANALYTICS', data);
+    console.log('handleUserCreated - ANALYTICS', data)
     this.analytics.push({
       email: data.email,
       timestamp: new Date(),
-    });
+    })
   }
 
   getAnalytics() {
-    return this.analytics;
+    return this.analytics
   }
 }
